@@ -37,7 +37,11 @@
               $('#datatable-body').append(row);
             }
 
-            $('#datatable').DataTable();
+            $('#datatable').DataTable({
+              scrollY: 400,
+              scrollCollapse: true,
+              paging: false
+            });
           });
         });
   </script>
