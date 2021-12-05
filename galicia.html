@@ -7,40 +7,41 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
   <script>
-    function getLinkData(apiUrl) {
+    function getData(apiUrl) {
       return $.getJSON(apiUrl, function(data) {
-          return data;
+        return data;
       });
     }
   
-    getLinkData("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs?ranges=%27Galician%20Jewish%20Communities%20by%20County%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
+    getData("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs?ranges=%27Galician%20Jewish%20Communities%20by%20County%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
       .then(function (linkData) {
-        $.getJSON("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs/values/'Galician%20Jewish%20Communities%20by%20County'!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU", function (data) {
-        const header = `<tr>
-        <th>${data.values[0][0]}</th>
-        <th>${data.values[0][1]}</th>
-        <th>${data.values[0][2]}</th>
-        <th>${data.values[0][4]}</th>
-        </tr>`;
-        $('#datatable-head').append(header);
-        $('#datatable-foot').append(header);
-        for (let i = 1; i < data.values.length; i++) {
-          let rowLinkData = linkData.sheets[0]['data'][0]['rowData'][i].values;
-          console.log();
-          let row = `<tr>
-          <td><a href='${rowLinkData[0].hyperlink}' target='_blank'>${data.values[i][0]}</a></td>
-          <td><a href='${rowLinkData[1].hyperlink}' target='_blank'>${data.values[i][1]}</a></td>
-          <td><a href='${rowLinkData[2].hyperlink}' target='_blank'>${data.values[i][2]}</a></td>
-          <td>${data.values[i][4]}</td>
-          </tr>`;
-          $('#datatable-body').append(row);
-        }
-      });
-    });
-  </script>
+        getData("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs/values/'Galician%20Jewish%20Communities%20by%20County'!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
+          .then(function (data) {
+            const header = `<tr>
+            <th>${data.values[0][0]}</th>
+            <th>${data.values[0][1]}</th>
+            <th>${data.values[0][2]}</th>
+            <th>${data.values[0][4]}</th>
+            </tr>`;
+            $('#datatable-head').append(header);
+            $('#datatable-foot').append(header);
+            for (let i = 1; i < data.values.length; i++) {
+              let rowLinkData = linkData.sheets[0]['data'][0]['rowData'][i].values;
+              console.log();
+              let row = `<tr>
+              <td><a href='${rowLinkData[0].hyperlink}' target='_blank'>${data.values[i][0]}</a></td>
+              <td><a href='${rowLinkData[1].hyperlink}' target='_blank'>${data.values[i][1]}</a></td>
+              <td><a href='${rowLinkData[2].hyperlink}' target='_blank'>${data.values[i][2]}</a></td>
+              <td>${data.values[i][4]}</td>
+              </tr>`;
+              $('#datatable-body').append(row);
+            }
 
-  <style>
-  </style>
+            $('#datatable').DataTable();
+          });
+        });
+  </script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
 <body>
   <table id="datatable" class="display" style="width:100%">
