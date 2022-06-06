@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mapping Jewish Communities in Galicia</title>
+  <title>Jewish communities in Bohemia</title>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -21,15 +21,15 @@
       });
     }
 
-    getData("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs?ranges=%27Galician%20Jewish%20Communities%20by%20County%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
+    getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo?ranges=%27Sheet1%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
       .then(function (linkData) {
-        getData("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs/values/%27Galician%20Jewish%20Communities%20by%20County%27!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
+        getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo/values/%27Sheet1%27!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
           .then(function (data) {
             const header = `<tr>
             <th>${data.values[0][0]}</th>
             <th>${data.values[0][1]}</th>
             <th>${data.values[0][2]}</th>
-            <th>${data.values[0][4]}</th>
+            <th>${data.values[0][3]}</th>
             </tr>`;
             $('#myTable1-head').append(header);
             for (let i = 1; i < data.values.length; i++) {
@@ -42,7 +42,7 @@
                   row += `<td>${data.values[i][j]}</td>`;
                 }
               }
-              row += `<td>${data.values[i][4]}</td></tr>`;
+              row += `<td>${data.values[i][3]}</td></tr>`;
               $('#myTable1-body').append(row);
             }
 
@@ -50,20 +50,20 @@
               scrollY: 400,
               scrollCollapse: true,
               paging: false,
-              "order": [[ 2, "asc" ]]
+              "order": [[ 0, "asc" ]]
             });
           });
         });
 
-    getData("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs?ranges=%27Galician%20Jewish%20Communities%20Alphabetically%27!A:F&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
+    getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo?ranges=%27Sheet2%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
       .then(function (linkData) {
-        getData("https://sheets.googleapis.com/v4/spreadsheets/1chiBzK6yXOThaiJvaaRFvTKx5tGpQxmK0NWselN0qXs/values/%27Galician%20Jewish%20Communities%20Alphabetically%27!A:F?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
+        getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo/values/%27Sheet2%27!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
           .then(function (data) {
             const header = `<tr>
             <th>${data.values[0][0]}</th>
             <th>${data.values[0][1]}</th>
             <th>${data.values[0][2]}</th>
-            <th>${data.values[0][5]}</th>
+            <th>${data.values[0][3]}</th>
             </tr>`;
             $('#myTable2-head').append(header);
             for (let i = 1; i < data.values.length; i++) {
@@ -76,14 +76,15 @@
                   row += `<td>${data.values[i][j]}</td>`;
                 }
               }
-              row += `<td>${data.values[i][5]}</td></tr>`;
+              row += `<td>${data.values[i][3]}</td></tr>`;
               $('#myTable2-body').append(row);
             }
 
             $('#myTable2').DataTable({
               scrollY: 400,
               scrollCollapse: true,
-              paging: false
+              paging: false,
+              "order": [[ 2, "asc" ]]
             });
           });
         });
@@ -97,14 +98,14 @@
   </style>
 </head>
 <body>
-  <h2>Mapping Jewish Communities in Galicia</h2>
+  <h2>Mapping Jewish communities in Bohemia</h2>
   <div>
     <ul class="nav nav-tabs" role="tablist">
       <li class="active">
-        <a href="#tab-table1" data-toggle="tab">Galician Jewish Communities by County</a>
+        <a href="#tab-table1" data-toggle="tab">Bohemia-Moravia Jewish Communities by County</a>
       </li>
       <li>
-        <a href="#tab-table2" data-toggle="tab">Galician Jewish Communities Alphabetically</a>
+        <a href="#tab-table2" data-toggle="tab">Bohemia-Moravia Jewish Communities Alphabetically</a>
       </li>
     </ul>
     <div class="tab-content">
