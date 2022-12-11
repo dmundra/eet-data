@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Jewish communities in Bohemia</title>
+  <title>Jewish Communities in Congress Poland</title>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -21,28 +21,31 @@
       });
     }
 
-    getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo?ranges=%27Sheet1%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
+    getData("https://sheets.googleapis.com/v4/spreadsheets/19BWPxst43OmIPYeqWk5wfKhEjJyotzOLTRKmMWghwMY?ranges=%27Congress%20Poland%20by%20County%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
       .then(function (linkData) {
-        getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo/values/%27Sheet1%27!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
+        getData("https://sheets.googleapis.com/v4/spreadsheets/19BWPxst43OmIPYeqWk5wfKhEjJyotzOLTRKmMWghwMY/values/%27Congress%20Poland%20by%20County%27!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
           .then(function (data) {
             const header = `<tr>
             <th>${data.values[0][0]}</th>
-            <th>${data.values[0][1]}</th>
             <th>${data.values[0][2]}</th>
             <th>${data.values[0][3]}</th>
+            <th>${data.values[0][4]}</th>
             </tr>`;
             $('#myTable1-head').append(header);
             for (let i = 1; i < data.values.length; i++) {
               let rowLinkData = linkData.sheets[0]['data'][0]['rowData'][i].values;
               let row = '<tr>';
-              for (let j = 0; j < 3; j++) {
+              for (let j = 0; j < 4; j++) {
+                if (j === 1)
+                  continue;
+                
                 if (rowLinkData[j] && rowLinkData[j].hyperlink) {
                   row += `<td><a href='${rowLinkData[j].hyperlink}' target='_blank'>${data.values[i][j]}</a></td>`;
                 } else {
                   row += `<td>${data.values[i][j]}</td>`;
                 }
               }
-              row += `<td>${data.values[i][3]}</td></tr>`;
+              row += `<td>${data.values[i][4]}</td></tr>`;
               $('#myTable1-body').append(row);
             }
 
@@ -55,28 +58,31 @@
           });
         });
 
-    getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo?ranges=%27Sheet2%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
+    getData("https://sheets.googleapis.com/v4/spreadsheets/19BWPxst43OmIPYeqWk5wfKhEjJyotzOLTRKmMWghwMY?ranges=%27Congress%20Poland%20Alphabetically%27!A:E&key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU&fields=sheets(data(rowData(values(hyperlink))))")
       .then(function (linkData) {
-        getData("https://sheets.googleapis.com/v4/spreadsheets/12BWHDuHUPUMJf4l9ll8L0DCRz-jmXtENlyQLCgLukmo/values/%27Sheet2%27!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
+        getData("https://sheets.googleapis.com/v4/spreadsheets/19BWPxst43OmIPYeqWk5wfKhEjJyotzOLTRKmMWghwMY/values/%27Congress%20Poland%20Alphabetically%27!A:E?key=AIzaSyBeWqWVg7VXDLyEF6j1VdYD4nQ4Hzi8dSU")
           .then(function (data) {
             const header = `<tr>
             <th>${data.values[0][0]}</th>
-            <th>${data.values[0][1]}</th>
             <th>${data.values[0][2]}</th>
             <th>${data.values[0][3]}</th>
+            <th>${data.values[0][4]}</th>
             </tr>`;
             $('#myTable2-head').append(header);
             for (let i = 1; i < data.values.length; i++) {
               let rowLinkData = linkData.sheets[0]['data'][0]['rowData'][i].values;
               let row = '<tr>';
-              for (let j = 0; j < 3; j++) {
+              for (let j = 0; j < 4; j++) {
+                if (j === 1)
+                  continue;
+                  
                 if (rowLinkData[j] && rowLinkData[j].hyperlink) {
                   row += `<td><a href='${rowLinkData[j].hyperlink}' target='_blank'>${data.values[i][j]}</a></td>`;
                 } else {
                   row += `<td>${data.values[i][j]}</td>`;
                 }
               }
-              row += `<td>${data.values[i][3]}</td></tr>`;
+              row += `<td>${data.values[i][4]}</td></tr>`;
               $('#myTable2-body').append(row);
             }
 
@@ -98,14 +104,14 @@
   </style>
 </head>
 <body>
-  <h2>Mapping Jewish communities in Bohemia and Moravia</h2>
+  <h2>Jewish Communities in Congress Poland</h2>
   <div>
     <ul class="nav nav-tabs" role="tablist">
       <li class="active">
-        <a href="#tab-table1" data-toggle="tab">Bohemia-Moravia Jewish Communities by County</a>
+        <a href="#tab-table1" data-toggle="tab">Congress Poland by County</a>
       </li>
       <li>
-        <a href="#tab-table2" data-toggle="tab">Bohemia-Moravia Jewish Communities Alphabetically</a>
+        <a href="#tab-table2" data-toggle="tab">Congress Poland Alphabetically</a>
       </li>
     </ul>
     <div class="tab-content">
